@@ -6,5 +6,7 @@ class IsTeacherOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_authenticated and hasattr(request.user, 'teacher'))
 
-# class IsStudent(permissions.BasePermission):
-#     def has_permission(self, request, view):
+class IsStudentOnly(permissions.BasePermission):
+    """Класс проверки на студента"""
+    def has_permission(self, request, view):
+        return bool(request.user and request.user.is_authenticated and hasattr(request.user, 'student'))
