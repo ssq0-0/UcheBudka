@@ -1,68 +1,77 @@
+from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import HW, StudentHW
-from .serializers import HWSerializers
+from .serializers import HWSerializers, StudentHWSerializers
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status
-from HW.permissions import IsTeacherOnly
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from HW.permissions import IsTeacherOnly, IsStudentOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+
+# переделать методы пост, пут/патч, дестрой училки, заменить классом RetrieveDestroyAPIView
 
 
-class HWAPIView(APIView):
-    """Общий Класс представления домашней работы как полным списком, так и по отдельному заданию"""
-    permission_classes = [IsAuthenticatedOrReadOnly]
+class HWAPIGetView(ListAPIView):
+    """Обычный класс для GET запроса на список домашних заданий"""
+    queryset = HW.objects.all()
+    serializer_class = HWSerializers
+    permission_classes = (IsAuthenticated, )
+
+
+class HWAPIPostView(CreateAPIView):
+    """Класс для публикации домашки учителем"""
+    queryset = HW.objects.all()
+    serializer_class = HWSerializers
+    permission_classes = (IsTeacherOnly, )
+
+
+class HWAPIUpdateView(UpdateAPIView):
+    """Класс для апдейта дз преподом"""
+    queryset = HW.objects.all()
+    serializer_class = HWSerializers
+    permission_classes = (IsTeacherOnly, )
+
+
+class HWAPIDestroyView(DestroyAPIView):
+    """Класс удаления записи преподом"""
+    queryset = HW.objects.all()
+    serializer_class = HWSerializers
+    permission_classes = (IsTeacherOnly, )
+
+
+class StudentAPIView(APIView):
+    permission_classes = [IsStudentOnly]
 
     def get(self, request, *args, **kwargs):
-        # просматривать домашнюю работу может кто угодно, даже не залогинившись
         pk = kwargs.get('pk')
         if not pk:
-            items = HW.objects.all()
-            serializer = HWSerializers(items, many=True)
+            return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
             item = get_object_or_404(HW, pk=pk)
             serializer = HWSerializers(item)
 
         return Response(serializer.data)
 
-    def post(self, request):
-        # Реализация публикации домашней работы в зависимости от того кто это пытается сделать
-        # учитель или кто либо другой
-        permissions = IsTeacherOnly()
-        if permissions.has_permission(request, self):
-            serializer = HWSerializers(data=request.data, context={'request': request})
-            if serializer.is_valid():
-                serializer.save()
-                return Response({'post': serializer.data})
-            else:
-                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def post(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        serializer = StudentHWSerializers(data=request.data, context={'request': request})
+        if serializer.is_valid():
+            serializer.save()
         else:
-            return Response({'error': 'Публиковать задания может только учитель'})
+            return Response({'error': 'ERROR'})
 
-    def put(self, request, *args, **kwargs):
-        # реализовать изменения только со стороны преподавателя
-        pk = kwargs.get('pk', None)
-        if not pk:
-            return Response({'error': 'Not find this item in DB'})
-        try:
-            instance = HW.objects.get(pk=pk)
-        except:
-            return Response({'error': 'Not find this item in DB'})
-        serializer = HWSerializers(data=request.data, instance=instance)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-        return Response({'post': serializer.data})
-
-    def delete(self, request, *args, **kwargs):
-        # предоставить возможность удаления только преподавателю
-        hw = get_object_or_404(HW, pk=kwargs.get('pk'))
-        hw.delete()
-        return Response(({'message': 'Deleted successfully'}, status==status.HTTP_204_NO_CONTENT))
+        # из пришедшего реквеста вытаскивает pk и делаем гет запрос на общую модель домашки
+        hw_item = HW.objects.get(pk=serializer.validated_data['hw'].pk)
+        if hw_item.fact_answer.strip().lower() == serializer.validated_data['student_answer'].strip().lower():
+            return Response({"post": "It's true!"})
+        else:
+            return Response({"post": "It's false("})
 
 
-class StudentHWAPIView(APIView):
-    """Класс представления для домашней работы. Этот класс будет принимать домашнюю работу и в дальнейшем
-    сравнивать ответы, которые дал препод с ответами учеников и возвращать treu/false. В процессе
-    разработки будет реализована возможность предоставления домашки в различном виде, в том числе и фото"""
-    pass
+def login_(request):
+    return render(request, 'HW/hw.html')
 
+
+def test_(request):
+    return render(request, 'HW/test.html')
