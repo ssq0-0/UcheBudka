@@ -22,3 +22,15 @@ class HWSerializers(serializers.Serializer):
         instance.save()
         return instance
 
+
+class StudentHWSerializers(serializers.Serializer):
+    school_subject = serializers.CharField(max_length=50)
+    student_answer = serializers.CharField()
+    hw = serializers.PrimaryKeyRelatedField(queryset=HW.objects.all())
+
+    def create(self, validated_data):
+        validated_data.pop('school_subject', None)
+
+        student = self.context['request'].user.student
+        # Теперь создаем экземпляр StudentHW только с ожидаемыми полями
+        return StudentHW.objects.create(student=student, **validated_data)
