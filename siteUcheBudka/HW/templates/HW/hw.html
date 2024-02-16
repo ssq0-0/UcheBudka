@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'HW/css/hw.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <div class="avtorization">
+        <h2>Вход</h2>
+        <form id="login-form" method="post">
+            {% csrf_token %}
+            <input class="login1" id="username" type="text" name="login" placeholder="Введите логин">
+            <br>
+            <input class="password1" id="password" type="text" name="password" placeholder="Введите пароль">
+            <br><br>
+            <input class="button" type="submit" value="Войти">
+           </form>
+        <p>
+            У вас нет учетной записи? Зарегестрироваться
+        </p>
+    </div>
+    <script src="{% static 'HW/js/rel.js' %}"></script>
+</body>
+</html>
