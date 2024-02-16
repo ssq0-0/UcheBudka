@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'HW/css/main.css' %}">
+    <title>Document</title>
+    <meta name="csrf-token" content="{% csrf_token %}">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <nav class="nav">
+                <ul>
+                        <li><a href="#">Главная</a></li>
+                        <li><a href="#">Класс</a></li>
+                        <li><a href="#">Домашнее задание</a></li>
+                        <li><a href="#">Дневник</a></li>
+                </ul>
+            </nav>
+            <button id="btnlk">Личный кабинет</button>
+        </div>
+    </header>
+    <section class="sctmain">
+        <section id="sctval">
+            <p>Уведомление о новых оценках</p>
+            <div>
+
+            </div>
+        </section>
+        <section id="sctnew">
+            <p>Уведомление о новых заданиях</p>
+             <div>
+
+             </div>
+        </section>
+    </section>
+<script src="{% static 'HW/js/main.js' %}"></script>
+</body>
+</html>
