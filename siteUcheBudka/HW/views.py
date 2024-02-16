@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import HW, StudentHW, Teacher, StudentClass
+from .models import HW, StudentHW, Teacher, StudentClass, Student
 from .serializers import HWSerializers, StudentHWSerializers
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
@@ -20,16 +20,35 @@ class HWAPIModelViewSet(viewsets.ModelViewSet):
 
 
 class TeacherMethodsAPIViewSet(viewsets.ModelViewSet):
-    """Вьюсет для препода, CRUD операции"""
+    """Вьюсет для препода, CRUD операции с домашней работой"""
     queryset = HW.objects.all()
     serializer_class = HWSerializers
     permission_classes = (IsTeacherOnly, )
 
 
-class HWParamsAPIView(APIView):
+class TeacherMarkAPIViewSet(APIView):
+    permission_classes = [IsTeacherOnly,]
+
+    def post(self, request, *args, **kwargs):
+        student_hw_id = request.data.get('student_hw_id')  # Используйте уникальный ID записи работы студента
+        new_mark = request.data.get('mark')
+
+        try:
+            # Получаем запись работы студента по её уникальному ID
+            student_hw = StudentHW.objects.get(id=student_hw_id)
+            student_hw.mark = new_mark
+            student_hw.save()
+            return Response({"message": "Mark is set"})
+        except StudentHW.DoesNotExist:
+            return Response({"error": "Student HW assignment not found"}, status=404)
+        except Exception as e:
+            return Response({"error": str(e)}, status=400)
+
+
+class HWParamsFroStudentAPIView(APIView):
     """Эндпоинт для студентов. Эндпоинт для главное страницы, а так же для будующей фильтрации
     по параметрам. Возвращает только те домашние задания, которые НЕ ВЫПОЛНЕНЫ"""
-    permission_classes = [IsStudentOnly]
+    permission_classes = [IsStudentOnly, ]
 
     def get(self, request, *args, **kwargs):
         student = request.user.student
