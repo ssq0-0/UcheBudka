@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'HW/css/diary.css' %}">
+    <script src="https://kit.fontawesome.com/2a885f5773.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <nav>
+                <a href="/api/v1/main/">Главная</a>
+                <a href="#">Дневник</a>
+                <a href="/api/v1/HWPage/">Дз</a>
+                <a href="/api/v1/Diary/">Класс</a>
+                <div class="animation start-home"></div>
+              </nav>
+            <button id="btnlk">Личный кабинет</button>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="journal">
+            <h1>Дневник</h1>
+            <table id="journal-table">
+
+            </table>
+            <div id="nav">
+                <button class="back"><i class="fa-solid fa-circle-left fa-4x text-shadow"></i></button>
+                <button class="next"><i class="fa-solid fa-circle-right fa-4x text-shadow"></i></button>
+            </div>
+        </div>
+    </main>
+
+
+    <footer>
+        <div class="footer-content">
+                <nav class="navf">
+                    <ul>
+                        <a href="/api/v1/main/">Главная</a>
+                        <a href="#">Класс</a>
+                        <a href="/api/v1/HWPage/">ДЗ</a>
+                        <a href="/api/v1/Diary/">Дневник</a>
+                        </ul>
+                    </nav>
+            <hr class="hr-shelf">
+        </div>
+    </footer>
+<script src="{% static 'HW/js/diary.js' %}"></script>
+</body>
+</html>
