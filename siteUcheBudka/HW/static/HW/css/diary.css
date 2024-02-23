@@ -1,0 +1,272 @@
+/* Сброс отступов и высоты для всего документа */
+html, body {
+    height: 100%;
+    margin: 0;
+}
+/* Desktop - 1 */
+body{
+  background:linear-gradient(200deg,#7ddef1,#CDFCFF); /* Цвета градиента */
+  background-size:500% 500%;
+  -webkit-animation:ServiceAnimation 10s ease infinite;
+  -moz-animation:ServiceAnimation 10s ease infinite;
+  -o-animation:ServiceAnimation 10s ease infinite;
+  animation:ServiceAnimation 10s ease infinite; /* Время смены цвета */
+}
+@-webkit-keyframes ServiceAnimation{0%
+  {background-position:90% 0}50%
+  {background-position:10% 100%}100%
+  {background-position:90% 0}
+}
+@-moz-keyframes ServiceAnimation{0%
+  {background-position:90% 0}50%
+  {background-position:10% 100%}100%
+  {background-position:90% 0}
+}
+@-o-keyframes ServiceAnimation{0%
+  {background-position:90% 0}50%
+  {background-position:10% 100%}100%
+  {background-position:90% 0}
+}
+@keyframes ServiceAnimation{0%
+  {background-position:90% 0}50%
+  {background-position:10% 100%}100%
+  {background-position:90% 0}
+}
+
+/* Центрирование header и увеличение размера */
+header {
+    width: 95%; /* Уменьшаем ширину на 46px, чтобы учесть padding и не выходить за рамки экрана */
+    height: 75px;
+    background: #CFF4FB;
+    border-radius: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 23px;
+    left: 50%;
+    border: 1px solid black;
+    transform: translateX(-50%);
+    z-index: 1; /* Центрирование относительно всей страницы */
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+}
+nav {
+
+    margin: 13px 20px;
+    position: relative;
+    width: 490px;
+    height: 50px;
+    border-radius: 8px;
+    font-size: 0;
+  }
+nav a {
+    line-height: 50px;
+    height: 100%;
+    font-size: 15px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    font-family: 'Verdana', sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  nav .animation {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    transition: all .5s ease 0s;
+    border-radius: 8px;
+  }
+  a:nth-child(1) {
+    width: 100px;
+  }
+  a:nth-child(2) {
+    width: 110px;
+  }
+  a:nth-child(3) {
+    width: 100px;
+  }
+  a:nth-child(4) {
+    width: 160px;
+  }
+  nav .start-home, a:nth-child(1):hover~.animation {
+    width: 100px;
+    left: 0;
+    background-color: #1abc9c;
+  }
+  nav .start-about, a:nth-child(2):hover~.animation {
+    width: 110px;
+    left: 100px;
+    background-color: #e74c3c;
+  }
+  nav .start-blog, a:nth-child(3):hover~.animation {
+    width: 100px;
+    left: 210px;
+    background-color: #3498db;
+  }
+  nav .start-portefolio, a:nth-child(4):hover~.animation {
+    width: 160px;
+    left: 310px;
+    background-color: #9b59b6;
+  }
+
+
+#btnlk {
+    margin: 0 0 0 500px;
+    padding: 9px 20px;
+    border-radius: 20px;
+    font-family: 'Verdana';
+    font-size: 16px;
+    background-color: rgb(255, 255, 255);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.4s, box-shadow 0.2s 0.3s;
+}
+#btnlk:hover{
+  background-color: #99d6cb;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #99d6cb;
+}
+main {
+    width: 95%;
+    height: 609px;
+    position: relative;
+    border-radius: 20px;
+    margin: 150px auto;
+    background-color: #4b3f3f;
+}
+
+.journal{
+/* Auto layout */
+height: 100%;
+border: 3px solid #000000;
+border-radius: 20px;
+}
+
+/* Блоки */
+h1{
+    text-align: center;
+}
+/* Auto layout */
+#list-homework{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 15px;
+}
+/* Rectangle 4 */
+#list{
+margin: 0 auto;
+width: 969px;
+height: 61px;
+border: 1px solid #000000;
+background: #59DC7E;
+border-radius: 20px;
+}
+table{
+  width: 100%;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+  text-align: left;
+}
+#journal-table tr:nth-child(even) {
+  background-color: #96dfee;
+}
+#journal-table tr:nth-child(odd) {
+ background-color: #fff;
+}
+
+/* Frame 4 */
+
+/* Auto layout */
+#nav{
+padding: 20px 10px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+}
+
+i::before{
+    background:transparent;
+}
+.back{
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.next{
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+.fa-circle-left:hover {
+    text-shadow: 2px 2px #20202088;
+    transition: all 500ms ease;
+}
+.fa-circle-right:hover {
+    text-shadow: 2px 2px #20202088;
+    transition: all 500ms ease;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    top:50px;
+    margin: 0 auto;
+    height: 30%;
+    background: #CFF4FB;
+    position: relative;
+    border-radius: 20px;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+
+}
+.footer-content {
+    width: 100%;
+}
+
+.navf ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.navf li {
+    margin: 0 10px;
+}
+
+.navf a {
+    text-decoration: none;
+    font-family: 'Inter';
+    font-size: 16px;
+    color: #000000;
+}
+.hr-shelf {
+	padding: 0;
+	height: 50px;
+	border: none;
+	border-bottom: 3px solid #1f1209;
+	box-shadow: 0 20px 20px -20px #333;
+	width: 90%;
+}
+
+/* Frame 3 */
+
+

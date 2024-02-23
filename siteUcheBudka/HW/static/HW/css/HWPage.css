@@ -1,0 +1,337 @@
+/* Сброс отступов и высоты для всего документа */
+html, body {
+    height: 100%;
+    margin: 0;
+    background: radial-gradient(107.79% 111.62% at 50% 50%, #A9D8EC 29.5%, rgba(255, 255, 255, 0) 100%);
+    background-blend-mode: multiply;
+}
+/* Desktop - 1 */
+
+
+/* Центрирование header и увеличение размера */
+header {
+    width: 95%; /* Уменьшаем ширину на 46px, чтобы учесть padding и не выходить за рамки экрана */
+    height: 75px;
+    background: #CFF4FB;
+    border-radius: 20px;
+    padding: 0 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 23px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1; /* Центрирование относительно всей страницы */
+}
+
+.header-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 90%;
+}
+nav {
+
+    margin: 13px 20px;
+    position: relative;
+    width: 490px;
+    height: 50px;
+    border-radius: 8px;
+    font-size: 0;
+  }
+nav a {
+    line-height: 50px;
+    height: 100%;
+    font-size: 15px;
+    display: inline-block;
+    position: relative;
+    z-index: 1;
+    font-family: 'Verdana', sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+  nav .animation {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    z-index: 0;
+    transition: all .5s ease 0s;
+    border-radius: 8px;
+  }
+  a:nth-child(1) {
+    width: 100px;
+  }
+  a:nth-child(2) {
+    width: 110px;
+  }
+  a:nth-child(3) {
+    width: 100px;
+  }
+  a:nth-child(4) {
+    width: 160px;
+  }
+  a:nth-child(5) {
+    width: 120px;
+  }
+  nav .start-home, a:nth-child(1):hover~.animation {
+    width: 100px;
+    left: 0;
+    background-color: #1abc9c;
+  }
+  nav .start-about, a:nth-child(2):hover~.animation {
+    width: 110px;
+    left: 100px;
+    background-color: #e74c3c;
+  }
+  nav .start-blog, a:nth-child(3):hover~.animation {
+    width: 100px;
+    left: 210px;
+    background-color: #3498db;
+  }
+  nav .start-portefolio, a:nth-child(4):hover~.animation {
+    width: 160px;
+    left: 310px;
+    background-color: #9b59b6;
+  }
+  nav .start-contact, a:nth-child(5):hover~.animation {
+    width: 120px;
+    left: 470px;
+    background-color: #e67e22;
+  }
+
+
+#btnlk {
+    margin: 0 0 0 280px;
+    padding: 9px 20px;
+    background: #D9D9D9;
+    border-radius: 20px;
+    font-family: 'Inter';
+    font-size: 16px;
+    color: rgb(60, 60, 60);
+    border: none;
+    cursor: pointer;
+}
+main {
+    width: 95%;
+    height: 609px;
+    position: relative;
+    border-radius: 20px;
+    margin: 150px auto;
+    background: none;
+}
+
+.homework{
+/* Auto layout */
+height: 100%;
+border: 3px solid #000000;
+border-radius: 20px;
+}
+
+/* Блоки */
+h1{
+    text-align: center;
+}
+/* Auto layout */
+#list-homework{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+gap: 15px;
+}
+/* Rectangle 4 */
+.list{
+margin: 0 auto;
+width: 969px;
+height: 61px;
+border: 1px solid #000000;
+background: #59DC7E;
+border-radius: 20px;
+}
+
+
+/* Frame 4 */
+
+/* Auto layout */
+#nav{
+padding: 20px 10px;
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+}
+
+i::before{
+    background:transparent;
+}
+.back{
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.next{
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+.fa-circle-left:hover {
+    text-shadow: 2px 2px #20202088;
+    transition: all 500ms ease;
+}
+.fa-circle-right:hover {
+    text-shadow: 2px 2px #20202088;
+    transition: all 500ms ease;
+}
+
+footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 95%;
+    top:50px;
+    margin: 0 auto;
+    height: 30%;
+    background: #CFF4FB;
+    position: relative;
+    border-radius: 20px;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+
+} 
+.footer-content {
+    width: 100%;
+}
+
+.navf ul {
+    display: flex;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
+
+.navf li {
+    margin: 0 10px;
+}
+
+.navf a {
+    text-decoration: none;
+    font-family: 'Inter';
+    font-size: 16px;
+    color: #000000;
+}
+.hr-shelf {
+	padding: 0;
+	height: 50px;
+	border: none;
+	border-bottom: 3px solid #1f1209;
+	box-shadow: 0 20px 20px -20px #333;
+	width: 90%;
+}
+
+/* Стиль для фона модального окна, который будет затемнять остальную часть страницы */
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 50%; /* Could be more or less, depending on screen size */
+  border-radius: 5px; /* Optional: for rounded corners */
+}
+
+/* The Close Button (x) */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* The input field */
+#userInput {
+  width: 95%; /* Relative to parent width */
+  padding: 10px;
+  margin-top: 20px; /* Space from the previous content */
+  margin-bottom: 20px; /* Space before the next content */
+  border: 1px solid #ccc;
+  border-radius: 4px; /* Optional: for rounded corners */
+}
+
+/* The submit button */
+#submitBtn {
+  padding: 10px 20px;
+  background-color: #5cb85c; /* A green background */
+  color: white; /* White text color */
+  border: none;
+  border-radius: 4px; /* Optional: for rounded corners */
+  cursor: pointer;
+}
+
+#submitBtn:hover {
+  background-color: #4cae4c; /* A darker green on hover */
+}
+.answer-button {
+    padding: 10px 20px;
+    background-image: linear-gradient(to right, #00ff00, #0000ff);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+.answer-button:hover {
+    background-image: linear-gradient(to right, #ccffcc, #ccccff);
+}
+.homework-item {
+    display: flex;
+    justify-content: space-between; /* This will push the button to the right */
+    align-items: center;
+    padding: 10px;
+    background-color: #59DC7E; /* Your chosen color */
+    border-radius: 20px;
+    margin-bottom: 10px; /* Space between items */
+}
+
+.homework-item p {
+    margin: 0; /* Removes default margin */
+    flex-grow: 1; /* Allows the paragraph to take up the available space */
+}
+
+.answer-button {
+    padding: 10px 20px;
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.answer-button:hover {
+    background-color: #45a049; /* Darker shade of green */
+}
