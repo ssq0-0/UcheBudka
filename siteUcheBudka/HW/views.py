@@ -1,13 +1,12 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
-from .models import HW, StudentHW, Teacher, StudentClass, Student
-from .serializers import HWSerializers, StudentHWSerializers
+from .models import HW, StudentHW, Teacher, StudentClass, Student, Profile
+from .serializers import HWSerializers, StudentHWSerializers, UserRegistrationSerializer, DiarySerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status, generics, viewsets
 from HW.permissions import IsTeacherOnly, IsStudentOnly
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated, AllowAny
 
 # переделать методы пост, пут/патч, дестрой училки, заменить классом RetrieveDestroyAPIView
 
@@ -16,7 +15,8 @@ class HWAPIModelViewSet(viewsets.ModelViewSet):
     """Дефолт гет запрос"""
     queryset = HW.objects.all()
     serializer_class = HWSerializers
-    permission_classes = (IsAuthenticated, )
+    permission_classes = [IsAuthenticated]
+# дописать вывод дз своего класса
 
 
 class TeacherMethodsAPIViewSet(viewsets.ModelViewSet):
@@ -27,10 +27,12 @@ class TeacherMethodsAPIViewSet(viewsets.ModelViewSet):
 
 
 class TeacherMarkAPIViewSet(APIView):
-    permission_classes = [IsTeacherOnly,]
+    """Класс препода для выставления оценки. Получаем дз студента по уникальному ID домашней работы и
+    присваеваем атрибуту mark оценку"""
+    permission_classes = [IsTeacherOnly, ]
 
     def post(self, request, *args, **kwargs):
-        student_hw_id = request.data.get('student_hw_id')  # Используйте уникальный ID записи работы студента
+        student_hw_id = request.data.get('student_hw_id')
         new_mark = request.data.get('mark')
 
         try:
@@ -103,6 +105,43 @@ class StudentAPIView(APIView):
             return Response({"post": "It's false("})
 
 
+class UserRegistrationAPIView(APIView):
+    """Дефолт класс регистрации. Прогоняется через сериализатор и выводит сообщение об успешной реге"""
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        serializer = UserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({"message": "Account successfully create!"})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class DiaryAPIView(APIView):
+    """Класс для дневника. Все данные приходят в json, каждый словарь в нем это 'предмет:оценка'.
+    Агрегируем через функцию в 'предмет: оценка оценка оценка' и выкидываем на фронт в таблицу"""
+    permission_classes = [IsStudentOnly]
+
+    def aggregate_marks_by_subject(self, student_hw_queryset):
+        subjects = {}
+        for mark in student_hw_queryset:
+            subject = mark.hw.school_subject
+            mark_value = mark.mark
+
+            if subject not in subjects:
+                subjects[subject] = []
+            subjects[subject].append(mark_value)
+        return subjects
+
+    def get(self, request):
+        user = request.user
+        student = get_object_or_404(Student, user=user)
+
+        completed_hw = StudentHW.objects.filter(student=student, complete=True)
+        aggregated_marks = self.aggregate_marks_by_subject(completed_hw)
+        # данные уже отправляются в словаре, но на всякий написать сериализатор под это, что бы избежать форс
+        # мажоров...
+        return Response(aggregated_marks)
 
 
 def login_(request):
@@ -111,3 +150,11 @@ def login_(request):
 
 def main_(request):
     return render(request, 'HW/main.html')
+
+
+def HWPage_(request):
+    return render(request, 'HW/HWPage.html')
+
+
+def Diary_(request):
+    return render(request, 'HW/diary.html')
