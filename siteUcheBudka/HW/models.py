@@ -51,3 +51,16 @@ class StudentHW(models.Model):
     student_answer = models.TextField()
     complete = models.BooleanField(default=False)
     mark = models.IntegerField(null=True, blank=True)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_teacher = models.BooleanField(default=False)
+    is_student = models.BooleanField(default=False)
+    fullname = models.CharField(max_length=100)
+    class_number = models.CharField(max_length=10, blank=True, null=True)
+    subject_handling = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        role = 'Teacher' if self.is_teacher else 'Student' if self.is_student else 'User'
+        return f"{self.user.username} ({role})"
