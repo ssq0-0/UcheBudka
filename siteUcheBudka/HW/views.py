@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from .models import HW, StudentHW, Teacher, StudentClass, Student, Profile
-from .serializers import HWSerializers, StudentHWSerializers, UserRegistrationSerializer, DiarySerializer
+from .serializers import HWSerializers, StudentHWSerializers, UserRegistrationSerializer, DiarySerializer, ProfileSerializer
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework import status, generics, viewsets
@@ -13,10 +13,13 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticate
 
 class HWAPIModelViewSet(viewsets.ModelViewSet):
     """Дефолт гет запрос"""
-    queryset = HW.objects.all()
     serializer_class = HWSerializers
     permission_classes = [IsAuthenticated]
-# дописать вывод дз своего класса
+
+    def get_queryset(self):
+        student = self.request.user.student
+        student_class = student.class_number
+        return HW.objects.filter(student_class__class_number=student_class)
 
 
 class TeacherMethodsAPIViewSet(viewsets.ModelViewSet):
@@ -144,6 +147,16 @@ class DiaryAPIView(APIView):
         return Response(aggregated_marks)
 
 
+class ProfileAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        student = get_object_or_404(Student, user=request.user)
+        serializer = ProfileSerializer(student)
+        return Response(serializer.data)
+
+
+
 def login_(request):
     return render(request, 'HW/hw.html')
 
@@ -158,3 +171,7 @@ def HWPage_(request):
 
 def Diary_(request):
     return render(request, 'HW/diary.html')
+
+
+def lk_(request):
+    return render(request, 'HW/lk.html')
