@@ -8,20 +8,74 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="avtorization">
-        <h2>Вход</h2>
-        <form id="login-form" method="post">
-            {% csrf_token %}
-            <input class="login1" id="username" type="text" name="login" placeholder="Введите логин">
-            <br>
-            <input class="password1" id="password" type="text" name="password" placeholder="Введите пароль">
-            <br><br>
-            <input class="button" type="submit" value="Войти">
-           </form>
-        <p>
-            У вас нет учетной записи? Зарегестрироваться
-        </p>
-    </div>
-    <script src="{% static 'HW/js/rel.js' %}"></script>
+    <article class="container">
+        <div class="block">
+            <section class="block__item block-item">
+                <h2 class="block-item__title">У вас уже есть аккаунт?</h2>
+                <button class="block-item__btn signin-btn">Войти</button>
+            </section>
+            <section class="block__item block-item">
+                <h2 class="block-item__title">У вас нет аккаунта?</h2>
+                <button class="block-item__btn signup-btn">Зарегистрироваться</button>
+            </section>
+        </div>
+        <div class="form-box">
+            <form action="#" id="login-form" class="form  form__signin">
+                {% csrf_token %}
+                <h3 class="form__title">Вход</h3>
+                <p>
+                    <input type="text" id="username" class="form__input" placeholder="Логин">
+                </p>
+                <p>
+                    <input type="password" id="password" class="form__input" placeholder="Пароль">
+                </p>
+                <p>
+                    <button type="submit" class="form__btn button">Войти</button>
+                </p>
+                <div id="error-message"></div>
+                <p>
+                    <a href="#" class="form__forgot">Восстановить пароль</a>
+                </p>
+            </form>
+
+            <form action="#" class="form form__signup">
+                <h3 class="form__title">Регистрация</h3>
+                    <p>
+                        <input type="text" class="form__input" placeholder="Логин" name="login">
+                    </p>
+                    <p>
+                        <input type="text" class="form__input" placeholder="ФИО" name="fullname">
+                    </p>
+                    <p>
+                        <input type="email" class="form__input" placeholder="Email" name="email">
+                    </p>
+                    <p>
+                        <input type="text" class="form__input" id="classField" placeholder="Класс" name="class_number">
+                    </p>
+                    <p>
+                        <input type="password" class="form__input" id="password1" placeholder="Пароль" name="password">
+                    </p>
+                    <p>
+                        <input type="password" class="form__input" id="confirmPassword" placeholder="Подтвердите пароль">
+                    </p>
+                    <p>Вы учитель?</p>
+                        <input type="radio" id="isTeacherYes" name="isTeacher" value="yes">
+                        <label for="isTeacherYes">Да</label>
+                        <input type="radio" id="isTeacherNo" name="isTeacher" value="no" checked>
+                        <label for="isTeacherNo">Нет</label>
+                            <div id="subjectInput" style="display: none;">
+                                <label for="subjectField">Введите ваш предмет:</label>
+                                <input type="text" id="subjectField" name="subject_handling">
+                            </div>
+                    <p>
+                        <button class="form__btn forn__btn_signup">Зарегистрироваться</button>
+                    </p>
+            </form>
+        </div>
+    </article>
+<script src="{% static 'HW/js/rel.js' %}"></script>
+<script src="{% static 'HW/js/login.js' %}"></script>
+<script src="{% static 'HW/js/registration_options.js' %}"></script>
+<script src="{% static 'HW/js/registration.js' %}"></script>
 </body>
 </html>
