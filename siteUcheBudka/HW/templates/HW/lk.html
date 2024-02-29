@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'HW/css/lk.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://kit.fontawesome.com/2a885f5773.js" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <nav>
+                <a href="/api/v1/main/">Главная</a>
+                <a href="#">Класс</a>
+                <a href="/api/v1/HWPage/">ДЗ</a>
+                <a href="/api/v1/Diary/">Дневник</a>
+                <div class="animation start-home"></div>
+              </nav>
+            <button id="btnlk"><a href="/api/v1/lk/">Личный кабинет</a></button>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="profile">
+            <div id="information">
+                <div id="inf">
+                    <div id="photo"></div>
+                    <div id="Name">
+                        <p>ФИО:</p>
+                        <div id="data"></div>
+                    </div>
+                    <div id="e-mail">
+                        <p>e-mail:</p>
+                        <div id="data"></div>
+                    </div>
+                    <div id="phone">
+                        <p>Номер телефона:</p>
+                        <div id="data"></div>
+                    </div>
+                    <button id="change">Изменить</button>
+                </div>
+            </div>
+            <div id="main-diag">
+                <canvas id="diag"></canvas>
+                <canvas id="diag2"></canvas>
+            </div>
+        </div>
+    </main>
+
+
+    <footer>
+        <div class="footer-content">
+                <nav class="navf">
+                    <ul>
+                            <li><a href="#">Главная</a></li>
+                            <li><a href="#">Класс</a></li>
+                            <li><a href="#">Домашнее задание</a></li>
+                            <li><a href="#">Дневник</a></li>
+                        </ul>
+                    </nav>
+            <hr class="hr-shelf">
+        </div>
+    </footer>
+<script src="{% static 'HW/js/lk.js' %}"></script>
+<script src="{% static 'HW/js/lk_charts.js' %}"></script>
+</body>
+</html>
