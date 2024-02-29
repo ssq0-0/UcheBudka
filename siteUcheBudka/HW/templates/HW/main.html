@@ -1,5 +1,4 @@
 {% load static %}
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -13,13 +12,13 @@
         <div class="header-content">
             <nav class="nav">
                 <ul>
-                        <li><a href="#">Главная</a></li>
+                        <li><a href="/api/v1/main/">Главная</a></li>
                         <li><a href="#">Класс</a></li>
-                        <li><a href="#">Домашнее задание</a></li>
-                        <li><a href="#">Дневник</a></li>
+                        <li><a href="/api/v1/HWPage/">Домашнее задание</a></li>
+                        <li><a href="/api/v1/Diary/">Дневник</a></li>
                 </ul>
             </nav>
-            <button id="btnlk">Личный кабинет</button>
+            <button id="btnlk"><a href="/api/v1/lk/">Личный кабинет</a></button>
         </div>
     </header>
     <section class="sctmain">
